@@ -5,8 +5,8 @@
     </ul>
   </div>
   <form ng-submit="openTab()" ng-show="!open">
-    Name: <input type="text" ng-model="tab.card_name"><br>
-    Card Number: <input type="text" ng-model="tab.card_number">
+    Name: <input type="text" ng-model="tab.cardName"><br>
+    Card Number: <input type="text" ng-model="tab.cardNumber">
   </form>
   <button ng-click="openTab()" ng-if="!open">Open Tab</button>
   <button ng-click="closeTab()" ng-if="open">Close Tab</button>

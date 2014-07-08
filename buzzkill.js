@@ -22,40 +22,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
     ;
 });
 
+
 app.controller('mainController', function($scope, $rootScope, $location, $firebase, FIREBASE_URL) {
   $scope.setUser = function() {
-    var usersRef = new Firebase(FIREBASE_URL + 'users');
-
-    // creating user if necessary
-    var found = false;
-    usersRef.on('value', function(snapshot) {
-      if (snapshot.hasChild($scope.user)) {
-        console.log("user exists");
-        found = true;
-      }
-    });
-    if (!found) {
-      console.log("creating user");
-      $firebase(usersRef).$add($scope.user);
-    }
-
-    // initialize and redirect user
+    // initialize global user and redirect
     $rootScope.user = $scope.user;
     $location.path('/tab');
   };
-
-  // var drinksRef = new Firebase(FIREBASE_URL + "drinklist");
-  // var newDrinkRef = drinksRef.push();
-
-  // newDrinkRef.set({
-  //   name: 'Long Island Iced Tea',
-  //   image: 'http://static.squarespace.com/static/5176fdb5e4b083b631f31303/t/525eaec9e4b0880126d6821f/1381936843998/bigstock-Long-Island-Iced-Tea-43438963.jpg',
-  //   price: '$5 million'
-  // });
-
-  // console.dir(drinksRef);
-  // console.log("new drink rec: " + newDrinkRef.name());
-  // $scope.display = "mulligan";
 });
 
 
@@ -67,22 +40,14 @@ app.controller("OrderController", function($scope, $firebase, FIREBASE_URL) {
   $scope.drinklist = $firebase(drinklistRef);
 
   $scope.addToOrder = function(drink) {
-    console.log("adding to order:" + drink.name);
     $scope.drinkorder.push(drink);
   };
   $scope.removeFromOrder = function(index) {
     $scope.drinkorder.splice(index, 1);
   };
   $scope.orderDrinks = function() {
-    console.log("Sending drink order");
-
     // initialize tab drinks
-    var usersRef = new Firebase(FIREBASE_URL + 'users');
-    var users = $firebase(usersRef);
-    users.find($scope.user);
-
-
-    var drinksRef = new Firebase(FIREBASE_URL + 'drinks');
+    var drinksRef = new Firebase(FIREBASE_URL + 'users' +  '/' + $scope.user + '/drinks');
     var drinks = $firebase(drinksRef);
 
     // adding drink order to tab
@@ -95,43 +60,38 @@ app.controller("OrderController", function($scope, $firebase, FIREBASE_URL) {
   };
 });
 
+
 app.controller("TabController", function($scope, $firebase, FIREBASE_URL) {
   $scope.tab = {};
   $scope.drinks = {};
   $scope.open = false;
 
-  // initialize tab drinks
-  var drinksRef = new Firebase(FIREBASE_URL + 'drinks');
-  $scope.drinks = $firebase(drinksRef);
-  console.log($scope.drinks);
-
   // checking for open tab
-  drinksRef.on('value', function(snapshot) {
-    snapshot.forEach(function() {
+  var userUrl = FIREBASE_URL + 'users' +  '/' + $scope.user;
+  var userRef = new Firebase(userUrl);
+  userRef.on('value', function(snapshot) {
+    if (snapshot.hasChild('tab')) {
       $scope.open = true;
-    });
+    }
   });
 
-  // TODO fix open/close tab code
+  // retrieve tab drinks
+  var drinksRef = new Firebase(FIREBASE_URL + 'users' +  '/' + $scope.user + '/drinks');
+  $scope.drinks = $firebase(drinksRef);
+
+  // insert tab data for user
   $scope.openTab = function() {
-    if ($scope.tab.name !== undefined) {
-      var tabsRef = new Firebase(FIREBASE_URL + 'tabs');
-      var tabs = $firebase(tabsRef);
-      tabs.add($scope.tab);
+    if ($scope.tab.cardName !== undefined) {
+      var tabUrl = FIREBASE_URL + 'users' +  '/' + $scope.user + '/tab';
+      var tabRef = new Firebase(tabUrl);
+      tabRef.set($scope.tab);
     }
   };
-  // $scope.openTab = function() {
-  //   if ($scope.name !== null) {
-  //     var tabsRef = new Firebase(FIREBASE_URL + 'tabs');
-  //     tabsRef.$add($scope.tab);
-  //     $scope.open = true;
-  //     console.log("Tab opened: " + $scope.name);
-  //     console.log("=> id: " + newTabRef.name());
-  //   }
-  // };
+
+  // delete all data for user
   $scope.closeTab = function() {
-    var drinksRef = new Firebase(FIREBASE_URL + 'drinks');
-    drinksRef.remove();
+    var userRef = new Firebase(FIREBASE_URL + 'users' +  '/' + $scope.user);
+    userRef.remove();
     $scope.open = false;
   };
 });
