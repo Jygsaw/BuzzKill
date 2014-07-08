@@ -1,5 +1,5 @@
 * {
-  /*border: 1px solid red;*/
+  border: 1px solid red;
 }
 
 html {
@@ -31,4 +31,12 @@ a {
 
 .rightBar {
   float: right;
+}
+
+.userName {
+  text-align: right;
+}
+
+.topNav {
+  float: left;
 }
