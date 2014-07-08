@@ -32,7 +32,7 @@ app.controller('mainController', function($scope, $rootScope, $location, $fireba
 });
 
 
-app.controller("OrderController", function($scope, $firebase, FIREBASE_URL) {
+app.controller("OrderController", function($scope, $location, $firebase, FIREBASE_URL) {
   $scope.drinkorder = [];
 
   // initialize drink list
@@ -55,8 +55,9 @@ app.controller("OrderController", function($scope, $firebase, FIREBASE_URL) {
       drinks.$add($scope.drinkorder[i]);
     }
 
-    // clear drink order
+    // clear drink order and redirect to Tab
     $scope.drinkorder = [];
+    $location.path('/tab');
   };
 });
 

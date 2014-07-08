@@ -1,17 +1,18 @@
 * {
-  border: 1px solid red;
+  /*border: 1px solid red;*/
 }
 
 html {
-  margin: auto;
   height: 100%;
+  background-color: white;
 }
 
 body {
   width: 240px;
   height: 320px;
   background-color: black;
-  color: white;
+  color: #A1C935;
+  margin: 0 auto;
 }
 
 a {
@@ -19,18 +20,27 @@ a {
   text-decoration: none;
 }
 
+button {
+  float: right;
+}
+
+.drink {
+  clear: both;
+}
+
 .drinkImage {
   width: 100px;
   height: auto;
+  float: left;
+}
+
+.drinkOrder {
+  clear: both;
 }
 
 .orderImage {
   width: 20px;
   height: auto;
-}
-
-.rightBar {
-  float: right;
 }
 
 .userName {
