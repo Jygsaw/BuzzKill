@@ -8,11 +8,25 @@ html {
 }
 
 body {
-  width: 240px;
-  height: 320px;
+  width: 320px;
+  height: 480px;
   background-color: black;
   color: #A1C935;
-  margin: 0 auto;
+  margin: 25px auto;
+  border-radius: 10px;
+  border: 1px solid red;
+}
+
+.content {
+  margin: 10px;
+}
+
+h2 {
+  text-align: center;
+}
+
+input {
+  width: 100%;
 }
 
 a {
