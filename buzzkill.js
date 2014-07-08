@@ -85,6 +85,7 @@ app.controller("TabController", function($scope, $firebase, FIREBASE_URL) {
       var tabUrl = FIREBASE_URL + 'users' +  '/' + $scope.user + '/tab';
       var tabRef = new Firebase(tabUrl);
       tabRef.set($scope.tab);
+      $location.path('/order');
     }
   };
 
