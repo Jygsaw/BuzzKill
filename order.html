@@ -1,6 +1,6 @@
-<div ng-controller="orderController">
+<div ng-controller="OrderController">
   <div class="drinkList">
-    <div class="drink" ng-model="drinkList" ng-repeat="drink in drinkList">
+    <div class="drink" ng-model="drinklist" ng-repeat="drink in drinklist">
       <b>{{ drink.name }}</b>
       <img class="drinkImage" src="{{ drink.image }}" ng-click="addToOrder(drink)">
       <b>{{ drink.price }}</b>
