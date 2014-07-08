@@ -27,19 +27,20 @@ app.controller('mainController', function($scope, $rootScope, $location, $fireba
     var usersRef = new Firebase(FIREBASE_URL + 'users');
 
     // creating user if necessary
-    var found = true;
+    var found = false;
     usersRef.on('value', function(snapshot) {
-      if (!snapshot.hasChild($scope.user)) {
-        console.log("user does not exist");
-        found = false;
+      if (snapshot.hasChild($scope.user)) {
+        console.log("user exists");
+        found = true;
       }
     });
     if (!found) {
+      console.log("creating user");
       $firebase(usersRef).$add($scope.user);
     }
 
+    // initialize and redirect user
     $rootScope.user = $scope.user;
-
     $location.path('/tab');
   };
 
