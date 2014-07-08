@@ -39,9 +39,34 @@ app.controller('mainController', function($scope, $firebase, FIREBASE_URL) {
 
 
 app.controller("OrderController", function($scope, $firebase, FIREBASE_URL) {
+  $scope.drinkorder = [];
+
   // initialize drink list
   var drinklistRef = new Firebase(FIREBASE_URL + 'drinklist');
   $scope.drinklist = $firebase(drinklistRef);
+
+  $scope.addToOrder = function(drink) {
+    console.log("adding to order:" + drink.name);
+    $scope.drinkorder.push(drink);
+  };
+  $scope.removeFromOrder = function(index) {
+    $scope.drinkorder.splice(index, 1);
+  };
+  $scope.orderDrinks = function() {
+    console.log("Sending drink order");
+
+    // initialize tab drinks
+    var drinksRef = new Firebase(FIREBASE_URL + 'drinks');
+    var drinks = $firebase(drinksRef);
+
+    // adding drink order to tab
+    for (var i = 0; i < $scope.drinkorder.length; i++) {
+      drinks.$add($scope.drinkorder[i]);
+    }
+
+    // clear drink order
+    $scope.drinkorder = [];
+  };
 });
 
 app.controller("TabController", function($scope, $firebase, FIREBASE_URL) {
