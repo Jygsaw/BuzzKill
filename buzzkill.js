@@ -22,7 +22,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
     ;
 });
 
-app.controller('mainController', function($scope, $firebase, FIREBASE_URL) {
+app.controller('mainController', function($scope, $rootScope, $location) {
+  $scope.setUser = function() {
+    $rootScope.user = $scope.user;
+    $location.path('/tab');
+  };
+
   // var drinksRef = new Firebase(FIREBASE_URL + "drinklist");
   // var newDrinkRef = drinksRef.push();
 
@@ -70,6 +75,7 @@ app.controller("OrderController", function($scope, $firebase, FIREBASE_URL) {
 });
 
 app.controller("TabController", function($scope, $firebase, FIREBASE_URL) {
+  $scope.tab = {};
   $scope.drinks = {};
   $scope.open = false;
 
@@ -86,6 +92,13 @@ app.controller("TabController", function($scope, $firebase, FIREBASE_URL) {
   });
 
   // TODO fix open/close tab code
+  $scope.openTab = function() {
+    if ($scope.tab.name !== undefined) {
+      var tabsRef = new Firebase(FIREBASE_URL + 'tabs');
+      var tabs = $firebase(tabsRef);
+      tabs.add($scope.tab);
+    }
+  };
   // $scope.openTab = function() {
   //   if ($scope.name !== null) {
   //     var tabsRef = new Firebase(FIREBASE_URL + 'tabs');

@@ -1,7 +1,9 @@
 <div ng-controller="mainController">
   <h2>Welcome!  Drink Up!</h2>
   <p>
-  Drink up!
-  <p>
-  {{ display }}
+  <form ng-submit="setUser()">
+    Github Email: <input type="text" ng-model="user">
+  </form>
+  <button ng-click="setUser()">Login</button>
+  </p>
 </div>
