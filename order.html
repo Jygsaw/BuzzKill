@@ -1,0 +1,19 @@
+<div ng-controller="orderController">
+  <div class="drinkList">
+    <div class="drink" ng-model="drinkList" ng-repeat="drink in drinkList">
+      <b>{{ drink.name }}</b>
+      <img class="drinkImage" src="{{ drink.image }}" ng-click="addToOrder(drink)">
+      <b>{{ drink.price }}</b>
+    </div>
+  </div>
+  <div class="rightBar">
+    <div class="drinkFilters">
+      <div class="drinkFilter">
+      </div>
+    </div>
+    <div class="drinkOrder">
+      <img class="orderImage" src="{{ drink.image }}" ng-repeat="drink in drinkOrder track by $index" ng-click="removeFromOrder($index)">
+      <button ng-click="orderDrinks()">Order</button>
+    </div>
+  </div>
+</div>
