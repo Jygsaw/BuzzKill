@@ -71,12 +71,19 @@ app.controller("OrderController", function($scope, $firebase, FIREBASE_URL) {
 
 app.controller("TabController", function($scope, $firebase, FIREBASE_URL) {
   $scope.drinks = {};
-  $scope.open = true;
+  $scope.open = false;
 
   // initialize tab drinks
   var drinksRef = new Firebase(FIREBASE_URL + 'drinks');
   $scope.drinks = $firebase(drinksRef);
   console.log($scope.drinks);
+
+  // checking for open tab
+  drinksRef.on('value', function(snapshot) {
+    snapshot.forEach(function() {
+      $scope.open = true;
+    });
+  });
 
   // TODO fix open/close tab code
   // $scope.openTab = function() {
@@ -88,9 +95,9 @@ app.controller("TabController", function($scope, $firebase, FIREBASE_URL) {
   //     console.log("=> id: " + newTabRef.name());
   //   }
   // };
-  // $scope.closeTab = function() {
-  //   var tabsRef = new Firebase(FIREBASE_URL + 'tabs');
-  //   tabsRef.$remove($scope.tab);
-  //   $scope.open = false;
-  // };
+  $scope.closeTab = function() {
+    var drinksRef = new Firebase(FIREBASE_URL + 'drinks');
+    drinksRef.remove();
+    $scope.open = false;
+  };
 });
