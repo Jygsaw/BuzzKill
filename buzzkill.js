@@ -61,7 +61,7 @@ app.controller("OrderController", function($scope, $firebase, FIREBASE_URL) {
     console.log("Sending drink order");
 
     // initialize tab drinks
-    var drinksRef = new Firebase(FIREBASE_URL + 'drinks' + '/' + $scope.user);
+    var drinksRef = new Firebase(FIREBASE_URL + 'drinks');
     var drinks = $firebase(drinksRef);
 
     // adding drink order to tab
