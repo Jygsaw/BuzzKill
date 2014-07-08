@@ -22,9 +22,24 @@ app.config(function($stateProvider, $urlRouterProvider) {
     ;
 });
 
-app.controller('mainController', function($scope, $rootScope, $location) {
+app.controller('mainController', function($scope, $rootScope, $location, $firebase, FIREBASE_URL) {
   $scope.setUser = function() {
+    var usersRef = new Firebase(FIREBASE_URL + 'users');
+
+    // creating user if necessary
+    var found = true;
+    usersRef.on('value', function(snapshot) {
+      if (!snapshot.hasChild($scope.user)) {
+        console.log("user does not exist");
+        found = false;
+      }
+    });
+    if (!found) {
+      $firebase(usersRef).$add($scope.user);
+    }
+
     $rootScope.user = $scope.user;
+
     $location.path('/tab');
   };
 
@@ -61,6 +76,11 @@ app.controller("OrderController", function($scope, $firebase, FIREBASE_URL) {
     console.log("Sending drink order");
 
     // initialize tab drinks
+    var usersRef = new Firebase(FIREBASE_URL + 'users');
+    var users = $firebase(usersRef);
+    users.find($scope.user);
+
+
     var drinksRef = new Firebase(FIREBASE_URL + 'drinks');
     var drinks = $firebase(drinksRef);
 
