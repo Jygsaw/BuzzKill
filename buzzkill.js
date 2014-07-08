@@ -61,7 +61,7 @@ app.controller("OrderController", function($scope, $firebase, FIREBASE_URL) {
 });
 
 
-app.controller("TabController", function($scope, $firebase, FIREBASE_URL) {
+app.controller("TabController", function($scope, $location, $firebase, FIREBASE_URL) {
   $scope.tab = {};
   $scope.drinks = {};
   $scope.open = false;
