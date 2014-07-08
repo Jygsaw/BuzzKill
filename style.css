@@ -1,0 +1,34 @@
+* {
+  border: 1px solid red;
+}
+
+html {
+  margin: auto;
+  height: 100%;
+}
+
+body {
+  width: 240px;
+  height: 320px;
+  background-color: black;
+  color: white;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.drinkImage {
+  width: 100px;
+  height: auto;
+}
+
+.orderImage {
+  width: 20px;
+  height: auto;
+}
+
+.rightBar {
+  float: right;
+}
