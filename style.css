@@ -50,3 +50,9 @@ button {
 .topNav {
   float: left;
 }
+
+.drinkList {
+  width: 240px;
+  height: 270px;
+  overflow-y: scroll;
+}
