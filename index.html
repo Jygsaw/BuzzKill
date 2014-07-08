@@ -11,11 +11,12 @@
     <script src="buzzkill.js"></script>
   </head>
   <body>
-    <h1><a ui-sref="main">BuzzKill</a></h1>
-    {{ user }}
-    <h3>
-      <a ui-sref="tab">Tab</a> | <a ui-sref="order">Order</a>
-    </h3>
+    <div class="topNav">
+      <a ui-sref="main"> Main </a> | <a ui-sref="tab">Tab</a> | <a ui-sref="order">Order</a>
+    </div>
+    <div class="userName">
+      {{ user }}
+    </div>
     <hr>
     <div ui-view></div>
   </body>
