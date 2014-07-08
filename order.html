@@ -4,9 +4,8 @@
     <div class="drink" ng-model="drinklist" ng-repeat="drink in drinklist">
       <img class="drinkImage" src="{{ drink.image }}" ng-click="addToOrder(drink)">
       <b>{{ drink.name }}</b>
-      <br>
-      <br>
-      <b>{{ drink.price }}</b>
+      <p>
+      <b>${{ drink.price }}</b>
     </div>
   </div>
   <div class="drinkOrder">

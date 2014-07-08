@@ -2,7 +2,7 @@
 <div ng-controller="TabController">
   <div class="drinkList" ng-if="open">
     <ul>
-      <li ng-repeat="drink in drinks">{{ drink.name }}</li>
+      <li ng-repeat="drink in drinks">{{ drink.name }} (${{ drink.price }})</li>
     </ul>
   </div>
   <div ng-if="!open">
@@ -12,6 +12,7 @@
     Name: <input type="text" ng-model="tab.cardName"><br>
     Card Number: <input type="text" ng-model="tab.cardNumber">
   </form>
+  Total: ${{ total }}
   <button ng-click="openTab()" ng-if="!open">Open Tab</button>
   <button ng-click="closeTab()" ng-if="open">Close Tab</button>
 </div>

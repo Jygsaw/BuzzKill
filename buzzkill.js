@@ -65,6 +65,7 @@ app.controller("OrderController", function($scope, $location, $firebase, FIREBAS
 app.controller("TabController", function($scope, $location, $firebase, FIREBASE_URL) {
   $scope.tab = {};
   $scope.drinks = {};
+  $scope.total = 0;
   $scope.open = false;
 
   // checking for open tab
@@ -79,6 +80,11 @@ app.controller("TabController", function($scope, $location, $firebase, FIREBASE_
   // retrieve tab drinks
   var drinksRef = new Firebase(FIREBASE_URL + 'users' +  '/' + $scope.user + '/drinks');
   $scope.drinks = $firebase(drinksRef);
+  drinksRef.on('value', function(snapshot) {
+    snapshot.forEach(function(drink) {
+      $scope.total += drink.child('price').val();
+    });
+  });
 
   // insert tab data for user
   $scope.openTab = function() {
@@ -95,5 +101,6 @@ app.controller("TabController", function($scope, $location, $firebase, FIREBASE_
     var userRef = new Firebase(FIREBASE_URL + 'users' +  '/' + $scope.user);
     userRef.remove();
     $scope.open = false;
+    $scope.total = 0;
   };
 });
